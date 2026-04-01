@@ -4,16 +4,16 @@ import { useState } from "react";
 
 const installPrompt = `Install Sifu for me.
 
-Sifu is a local action logger for macOS that captures
-my workflows and auto-generates SOPs, coaching feedback,
-and automation scripts.
+Sifu is a native macOS action logger that captures
+my workflows and produces clean tutorials for humans
+and structured workflow specs for agents.
 
-Read https://github.com/heymitch/sifu and install it
-on my machine. Set up the menu bar widget so I can
-see recording status.
-
-After install, start a capture session so I can test it:
-  sifu start
+Read https://github.com/heymitch/sifu and install it:
+1. Clone the repo and pip install the Python CLI
+2. Build the native SifuBar capture app from extras/SifuBar
+3. Move SifuBar.app to /Applications
+4. Grant Accessibility and Screen Recording permissions
+5. Start a capture session: sifu start
 
 Then confirm it's running and show me the status.`;
 
@@ -189,7 +189,7 @@ git commit -m 'fix: update deploy config'`}
 
 export default function SifuPage() {
   const [copied, setCopied] = useState(false);
-  const [showCode, setShowCode] = useState(false);
+  const [outputTab, setOutputTab] = useState<"preview" | "code" | "agent">("preview");
 
   const handleCopy = () => {
     navigator.clipboard.writeText(installPrompt);
@@ -242,21 +242,22 @@ export default function SifuPage() {
             </h1>
 
             <p className="text-2xl sm:text-3xl font-medium text-ink/80 mb-6 leading-snug">
-              Work normally. Get SOPs automatically.
+              Train your agent.
             </p>
 
             <p className="font-mono text-sm text-branch-light/70 leading-relaxed mb-8 max-w-lg">
-              Free, open-source action logger for macOS. Records your workflows,
-              detects patterns, generates step-by-step documentation with
-              screenshots. Privacy-first&mdash;everything stays on your machine.
+              Work normally. Sifu watches, then produces clean tutorials
+              for humans and structured workflow specs for agents.
+              Same recording, two outputs. Open source, privacy-first,
+              everything stays on your machine.
             </p>
 
             <ul className="space-y-3 mb-8">
               {[
-                "Step-by-step SOPs from real workflows",
-                "Coaching feedback on inefficiencies",
-                "Automation scripts for repetitive patterns",
-                "Workflow classifier\u2014finds what to automate and how",
+                "SOPs and tutorials from real workflows\u2014no manual documentation",
+                "Classified workflow specs your agent can execute",
+                "Coaching on shortcuts and inefficiencies",
+                "Saves tokens vs computer use and browser automation tools",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-1.5 block h-2 w-2 rounded-full bg-blossom shrink-0" />
@@ -265,9 +266,11 @@ export default function SifuPage() {
               ))}
             </ul>
 
-            <p className="font-mono text-xs tracking-wide uppercase text-branch-light/40">
-              No screen recording apps. No manual documentation. No paid subscriptions.
-            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-flex items-center rounded-full bg-blossom-light/30 border border-blossom/15 px-3 py-1 font-mono text-xs text-ink/50">SOPs for humans</span>
+              <span className="inline-flex items-center rounded-full bg-blossom-light/30 border border-blossom/15 px-3 py-1 font-mono text-xs text-ink/50">Specs for agents</span>
+              <span className="inline-flex items-center rounded-full bg-blossom-light/30 border border-blossom/15 px-3 py-1 font-mono text-xs text-ink/50">Zero manual docs</span>
+            </div>
           </div>
 
           {/* Hero video */}
@@ -290,10 +293,11 @@ export default function SifuPage() {
 
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold text-paper mb-2">
-              Install once. Paste into your agent.
+              One prompt. Your agent handles the rest.
             </h2>
             <p className="font-mono text-sm text-paper/40 mb-8">
-              Open Claude Code, Codex, or OpenClaw. Paste this. Done.
+              Paste this into Claude Code, Codex, or OpenClaw. Your agent
+              clones the repo, builds the native app, installs the CLI, and starts capturing.
             </p>
 
             <div className="rounded-lg border border-blossom/10 bg-ink/80 p-6 overflow-x-auto backdrop-blur-sm relative group">
@@ -355,21 +359,28 @@ export default function SifuPage() {
         </div>
       </section>
 
-      {/* ── Five Layers ── */}
+      {/* ── Architecture ── */}
       <section className="relative z-10 max-w-[960px] mx-auto px-6 py-16">
         <div className="branch-divider mb-10" />
 
         <div className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink mb-2">
-            Six layers, one command
+            Native app + CLI. Six layers.
           </h2>
           <p className="font-mono text-branch-light/60 text-sm">
-            Each layer builds on the last. Start capturing, everything else follows.
+            SifuBar.app captures natively with macOS permissions. The CLI analyzes, compiles, and classifies.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {layers.map((l, i) => (
+        {/* Native app label */}
+        <div className="mb-3">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-wider uppercase text-blossom-deep/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-blossom-deep/70" />
+            Native macOS app (SifuBar.app)
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          {layers.slice(0, 2).map((l, i) => (
             <div
               key={l.name}
               className="group rounded-xl border border-blossom/15 bg-blossom-light/20 p-5 transition-all duration-300 hover:border-blossom/40 hover:bg-blossom-light/40 hover:shadow-lg hover:shadow-blossom/5"
@@ -377,6 +388,31 @@ export default function SifuPage() {
               <div className="text-2xl mb-3 text-blossom-deep">{l.icon}</div>
               <div className="font-mono text-[10px] tracking-wider uppercase text-branch-light/40 mb-1">
                 Layer {i}
+              </div>
+              <h3 className="font-bold text-ink text-sm mb-2">{l.name}</h3>
+              <p className="font-mono text-xs text-branch-light/60 leading-relaxed">
+                {l.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* CLI label */}
+        <div className="mb-3">
+          <span className="inline-flex items-center gap-2 font-mono text-[10px] tracking-wider uppercase text-leaf/70">
+            <span className="h-1.5 w-1.5 rounded-full bg-leaf/70" />
+            Python CLI (agent-powered analysis)
+          </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {layers.slice(2).map((l, i) => (
+            <div
+              key={l.name}
+              className="group rounded-xl border border-blossom/15 bg-blossom-light/20 p-5 transition-all duration-300 hover:border-blossom/40 hover:bg-blossom-light/40 hover:shadow-lg hover:shadow-blossom/5"
+            >
+              <div className="text-2xl mb-3 text-blossom-deep">{l.icon}</div>
+              <div className="font-mono text-[10px] tracking-wider uppercase text-branch-light/40 mb-1">
+                Layer {i + 2}
               </div>
               <h3 className="font-bold text-ink text-sm mb-2">{l.name}</h3>
               <p className="font-mono text-xs text-branch-light/60 leading-relaxed">
@@ -394,99 +430,130 @@ export default function SifuPage() {
 
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl sm:text-3xl font-bold text-paper mb-2">
-              What you get
+              Two outputs from one recording
             </h2>
             <p className="font-mono text-sm text-paper/40 mb-8">
-              Real output from a real workflow. Sifu watched a Vercel deploy and
-              wrote this.
+              Sifu watched a Vercel deploy. It produced a tutorial a human can follow
+              and a classified spec an agent can execute. Same workflow, both audiences.
             </p>
 
             <div className="rounded-lg border border-blossom/10 bg-[#12101e] overflow-hidden">
               {/* Tab bar */}
               <div className="flex border-b border-blossom/20">
-                <button
-                  onClick={() => setShowCode(false)}
-                  className={`px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
-                    !showCode
-                      ? "text-blossom-deep border-b-2 border-blossom-deep"
-                      : "text-paper/40 hover:text-paper/60 border-b-2 border-transparent"
-                  }`}
-                >
-                  Preview
-                </button>
-                <button
-                  onClick={() => setShowCode(true)}
-                  className={`px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
-                    showCode
-                      ? "text-blossom-deep border-b-2 border-blossom-deep"
-                      : "text-paper/40 hover:text-paper/60 border-b-2 border-transparent"
-                  }`}
-                >
-                  Code
-                </button>
+                {([
+                  { id: "preview" as const, label: "For Humans" },
+                  { id: "agent" as const, label: "For Agents" },
+                  { id: "code" as const, label: "Raw Markdown" },
+                ]).map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setOutputTab(tab.id)}
+                    className={`px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
+                      outputTab === tab.id
+                        ? "text-blossom-deep border-b-2 border-blossom-deep"
+                        : "text-paper/40 hover:text-paper/60 border-b-2 border-transparent"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
               </div>
 
               {/* Content area */}
               <div className="p-6 overflow-x-auto">
-                <div
-                  className="transition-opacity duration-200"
-                  style={{ opacity: showCode ? 0 : 1, display: showCode ? "none" : "block" }}
-                >
-                  <SopPreview />
-                </div>
-                <div
-                  className="transition-opacity duration-200"
-                  style={{ opacity: showCode ? 1 : 0, display: showCode ? "block" : "none" }}
-                >
+                {outputTab === "preview" && <SopPreview />}
+                {outputTab === "code" && (
                   <pre className="font-mono text-xs sm:text-sm leading-relaxed text-paper/70 whitespace-pre-wrap">
                     {sopSnippet}
                   </pre>
-                </div>
+                )}
+                {outputTab === "agent" && (
+                  <div className="font-mono text-xs sm:text-sm leading-relaxed text-paper/70 space-y-2">
+                    <div className="text-paper/40 text-xs mb-4">
+                      # Classified workflow spec &mdash; machine-readable, agent-executable
+                    </div>
+                    {classifierSteps.map((step) => (
+                      <div
+                        key={step.id}
+                        className={`flex items-center gap-3 rounded-md px-3 py-2 ${
+                          step.method === "eliminate" ? "opacity-40" : ""
+                        }`}
+                      >
+                        <span className={`shrink-0 w-12 text-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${labelColors[step.label]}`}>
+                          {step.label}
+                        </span>
+                        <span className={`flex-1 ${step.method === "eliminate" ? "line-through text-paper/30" : "text-paper/70"}`}>
+                          {step.original}
+                        </span>
+                      </div>
+                    ))}
+                    <div className="border-t border-blossom/20 mt-4 pt-3 flex items-center gap-4">
+                      <span className="text-paper/30">Human: <span className="text-paper/60">9 steps</span></span>
+                      <span className="text-paper/20">&rarr;</span>
+                      <span className="text-paper/30">Agent: <span className="text-leaf">5 steps</span></span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 
             <div className="flex items-center gap-3 mt-6">
               <span className="h-1.5 w-1.5 rounded-full bg-blossom animate-pulse" />
               <p className="font-mono text-xs text-paper/30">
-                Auto-generated. Auto-opened in Sublime Text. macOS notification when done.
+                Same recording. Tutorial for your team, spec for your agent. Both auto-generated.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Go Further ── */}
+      {/* ── What to say ── */}
       <section className="relative z-10 max-w-[960px] mx-auto px-6 py-16">
         <div className="branch-divider mb-10" />
 
         <div className="max-w-2xl">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink mb-3">
-            Coach and optimize your workflow
+            What to say to your agent
           </h2>
           <p className="font-mono text-sm text-branch-light/60 mb-8">
-            Already installed? Ask your agent to analyze and optimize your day.
+            Sifu is agent-native. You talk to your agent, it talks to Sifu.
           </p>
 
-          <div className="rounded-lg border border-blossom/10 bg-ink p-6 overflow-x-auto">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="h-3 w-3 rounded-full bg-blossom-deep/80" />
-              <span className="h-3 w-3 rounded-full bg-blossom/60" />
-              <span className="h-3 w-3 rounded-full bg-leaf/60" />
-              <span className="ml-3 font-mono text-xs text-leaf/40">
-                terminal
-              </span>
-            </div>
-            <pre className="font-mono text-sm sm:text-base leading-relaxed">
-              <span className="text-leaf">
-                {">"} Classify my workflows from today.{"\n"}
-                {"  "}What can be automated?
-              </span>
-            </pre>
+          <div className="space-y-4">
+            {[
+              {
+                prompt: "Compile my workflows from today into SOPs.",
+                desc: "Tutorials for your team",
+              },
+              {
+                prompt: "Classify my workflows. What can be automated?",
+                desc: "Specs for your agent",
+              },
+              {
+                prompt: "Coach my workflow. What shortcuts am I missing?",
+                desc: "Efficiency feedback",
+              },
+              {
+                prompt: "What tools do I have that Sifu can classify against?",
+                desc: "Capability discovery",
+              },
+            ].map((example) => (
+              <div
+                key={example.prompt}
+                className="rounded-lg border border-blossom/10 bg-ink px-5 py-4 flex items-start gap-4"
+              >
+                <span className="text-leaf font-mono text-sm mt-0.5 shrink-0">&gt;</span>
+                <div className="flex-1">
+                  <pre className="font-mono text-sm text-leaf whitespace-pre-wrap">{example.prompt}</pre>
+                  <p className="font-mono text-xs text-paper/30 mt-1">{example.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <p className="font-mono text-xs text-branch-light/40 mt-4">
+          <p className="font-mono text-xs text-branch-light/40 mt-6">
             Works with Claude Code, Codex, and OpenClaw. The agent reads your
-            action log, classifies each step, and shows you the fastest path.
+            action log and does the rest.
           </p>
         </div>
       </section>
@@ -605,6 +672,22 @@ actions:
               </span>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Mission ── */}
+      <section className="relative z-10 max-w-[960px] mx-auto px-6 py-16">
+        <div className="branch-divider mb-10" />
+
+        <div className="max-w-xl mx-auto text-center">
+          <p className="text-xl sm:text-2xl font-medium text-ink/80 leading-relaxed mb-4">
+            Building tools agents want.
+          </p>
+          <p className="font-mono text-sm text-branch-light/60 leading-relaxed">
+            Sifu exists so agents can understand human workflows.
+            Open source, agent-native, built for the people building
+            the future of work.
+          </p>
         </div>
       </section>
 
