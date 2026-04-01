@@ -1,0 +1,125 @@
+<h2>Proposed page structure</h2>
+<p class="subtitle">Updated sections for the Swift-native + classifier version. What needs to change, what stays.</p>
+
+<div class="section">
+  <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.6; margin-bottom: 1.5rem;">
+    Core insight: The lander convinces you to paste one prompt into your agent. Everything else supports that moment.
+  </p>
+</div>
+
+<!-- Section-by-section breakdown -->
+<div style="display: flex; flex-direction: column; gap: 1.5rem;">
+
+  <!-- Hero -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">1. Hero</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #ff6b3520; color: #ff6b35; font-weight: 600;">NEEDS REWORK</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>Current:</strong> "Work normally. Get SOPs automatically." — focuses only on documentation output.
+    </p>
+    <p style="color: var(--text-primary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>Proposed:</strong> Lead with the full pipeline — capture &rarr; classify &rarr; automate. The value isn't just SOPs, it's showing you what's automatable and how.
+    </p>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      Bullet points update: SOPs + coaching + <strong>classified workflow specs</strong> + automation scripts. Drop "tutorial content from screen recordings" (was never the core value).
+    </p>
+  </div>
+
+  <!-- Install prompt -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">2. Install Prompt (CTA)</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #ff6b3520; color: #ff6b35; font-weight: 600;">NEEDS REWORK</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>Current:</strong> Prompt only mentions pip install + Python daemon. Doesn't mention Swift app build.
+    </p>
+    <p style="color: var(--text-primary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>Proposed:</strong> Update the install prompt to include the full setup — clone, pip install, swift build, move .app to /Applications, grant permissions, start capture. The agent handles all of this.
+    </p>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      This is the moment that proves agents are useful — "I pasted one thing and got a fully installed native app."
+    </p>
+  </div>
+
+  <!-- Architecture -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">3. Architecture ("Six layers")</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #22c55e20; color: #22c55e; font-weight: 600;">JUST SHIPPED</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      Already updated to 6 layers including Classifier. <strong>But</strong> — should now distinguish "Native app (Layers 0-1)" vs "CLI (Layers 2-6)" in the visual. Show the split.
+    </p>
+  </div>
+
+  <!-- Sample output -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">4. Sample Output</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #3b82f620; color: #3b82f6; font-weight: 600;">KEEP + EXTEND</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      Currently shows a compiled SOP (good). Add a second tab or section showing the <strong>classified workflow spec</strong> — the before/after with method labels. This is the new differentiator.
+    </p>
+  </div>
+
+  <!-- Classifier -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">5. Classifier Section</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #22c55e20; color: #22c55e; font-weight: 600;">JUST SHIPPED</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      Already added. Before/after visualization, capability extensions, stats bar. This section is solid.
+    </p>
+  </div>
+
+  <!-- Agent prompt -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">6. "Go Further" / Agent Prompt</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #ff6b3520; color: #ff6b35; font-weight: 600;">NEEDS REWORK</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>Current:</strong> Shows "Classify my workflows from today" as a terminal prompt.
+    </p>
+    <p style="color: var(--text-primary); font-size: 0.85rem; line-height: 1.5;">
+      <strong>Proposed:</strong> Reframe as "What to say to your agent" — show 3-4 example prompts that demonstrate the full pipeline. This reinforces that Sifu is agent-native.
+    </p>
+  </div>
+
+  <!-- Commands -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">7. Commands Reference</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #22c55e20; color: #22c55e; font-weight: 600;">JUST UPDATED</span>
+    </div>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      Already includes classify commands. Keep as-is.
+    </p>
+  </div>
+
+  <!-- NEW: Mission -->
+  <div style="border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; background: var(--surface);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+      <h3 style="margin: 0;">8. Mission / Why (NEW)</h3>
+      <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 99px; background: #a855f720; color: #a855f7; font-weight: 600;">NEW SECTION</span>
+    </div>
+    <p style="color: var(--text-primary); font-size: 0.85rem; line-height: 1.5; margin-bottom: 0.75rem;">
+      <strong>"Building tools agents want."</strong> Short section before the footer that frames the mission. Sifu exists to make agents better at understanding human workflows. Open source, agent-native, built for the people building the future of work.
+    </p>
+    <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5;">
+      This is the consulting hook without being a consulting pitch. People who resonate will find you.
+    </p>
+  </div>
+
+</div>
+
+<div style="margin-top: 2rem; padding: 1.25rem; border-radius: 8px; background: var(--surface); border: 1px solid var(--border);">
+  <p style="color: var(--text-secondary); font-size: 0.85rem; line-height: 1.5; margin: 0;">
+    <strong>Summary:</strong> 3 sections need rework (Hero, Install Prompt, Go Further), 1 new section (Mission), rest stays or extends slightly. The page structure doesn't change — just the messaging catches up to the product.
+  </p>
+</div>

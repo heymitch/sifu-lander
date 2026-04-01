@@ -219,9 +219,12 @@ export default function SifuPage() {
       {/* ── Nav ── */}
       <nav className="relative z-10 max-w-[960px] mx-auto px-6 pt-8 pb-4">
         <div className="flex items-center justify-between">
-          <span className="font-mono text-xs tracking-[0.3em] uppercase text-branch-light/60">
+          <a
+            href="https://heymitch.ai"
+            className="font-mono text-xs tracking-[0.3em] uppercase text-branch-light/60 hover:text-blossom transition-colors"
+          >
             heymitch.ai
-          </span>
+          </a>
           <a
             href="https://github.com/heymitch/sifu"
             target="_blank"
@@ -298,7 +301,7 @@ export default function SifuPage() {
               One prompt. Your agent handles the rest.
             </h2>
             <p className="font-mono text-sm text-paper/40 mb-8">
-              Paste this into Claude Code, Codex, or OpenClaw. Your agent
+              Paste this into Claude Code or Codex. Your agent
               clones the repo, builds the native app, installs the CLI, and starts capturing.
             </p>
 
@@ -335,7 +338,7 @@ export default function SifuPage() {
             </div>
 
             <div className="flex flex-wrap gap-3 mt-6">
-              {["Claude Code", "Codex", "OpenClaw"].map((name) => (
+              {["Claude Code", "Codex"].map((name) => (
                 <span
                   key={name}
                   className="inline-flex items-center gap-2 rounded-full bg-paper/5 border border-paper/10 px-4 py-1.5 font-mono text-xs text-paper/50"
@@ -422,6 +425,59 @@ export default function SifuPage() {
               </p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── Menu Bar ── */}
+      <section className="relative z-10 bg-ink">
+        <div className="max-w-[960px] mx-auto px-6 py-16">
+          <div className="branch-divider branch-divider-ink mb-10" />
+
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-paper mb-2">
+              Lives in your menu bar
+            </h2>
+            <p className="font-mono text-sm text-paper/40 mb-8">
+              Start, stop, compile, coach&mdash;all from the menu bar.
+              The icon shows which layer is active.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div>
+                <p className="font-mono text-xs text-paper/30 uppercase tracking-wider mb-3">Idle</p>
+                <img
+                  src="/menu-idle.png"
+                  alt="SifuBar menu - idle state"
+                  className="rounded-lg border border-blossom/10 shadow-lg shadow-blossom/5 w-full"
+                />
+              </div>
+              <div>
+                <p className="font-mono text-xs text-paper/30 uppercase tracking-wider mb-3">Recording</p>
+                <img
+                  src="/menu-recording.png"
+                  alt="SifuBar menu - recording state"
+                  className="rounded-lg border border-blossom/10 shadow-lg shadow-blossom/5 w-full"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-3 mt-6">
+              {[
+                { icon: "\u25C9", label: "Recording" },
+                { icon: "\u25C8", label: "Compiling" },
+                { icon: "\u25C7", label: "Coaching" },
+                { icon: "\u2B21", label: "Classifying" },
+              ].map((s) => (
+                <span
+                  key={s.label}
+                  className="inline-flex items-center gap-2 rounded-full bg-paper/5 border border-paper/10 px-3 py-1.5 font-mono text-xs text-paper/50"
+                >
+                  <span className="text-blossom">{s.icon}</span>
+                  {s.label}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -554,7 +610,7 @@ export default function SifuPage() {
           </div>
 
           <p className="font-mono text-xs text-branch-light/40 mt-6">
-            Works with Claude Code, Codex, and OpenClaw. The agent reads your
+            Works with Claude Code and Codex. The agent reads your
             action log and does the rest.
           </p>
         </div>

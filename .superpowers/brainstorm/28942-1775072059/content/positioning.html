@@ -1,0 +1,61 @@
+<h2>How should we position Sifu now?</h2>
+<p class="subtitle">The Swift app changes the product story. Which framing fits best?</p>
+
+<div class="section">
+  <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 2rem;">
+    <strong>Context:</strong> Sifu used to be "a Python CLI you pip install." Now it's a native macOS app (Swift) for capture + a Python CLI for analysis. The install story, hero messaging, and product framing all need to shift.
+  </p>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Native Mac App (Lead with Swift)</h3>
+      <p><strong>Hero:</strong> "Your workflow sensei. A native macOS app that watches you work and turns everything into documentation, coaching, and automation."</p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+        <strong>Install CTA:</strong> Download SifuBar.app &rarr; drag to Applications<br/>
+        <strong>CLI mentioned as:</strong> "Power user tools" secondary section<br/>
+        <strong>Vibe:</strong> Polished product. App icon. Menu bar screenshots. "Just works."
+      </p>
+      <div class="pros-cons" style="margin-top: 1rem;">
+        <div class="pros"><h4>Pros</h4><ul><li>Feels like a real product, not a dev tool</li><li>Native app = trust for non-developers</li><li>Simple install story</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Still requires Python CLI for analysis</li><li>No code signing / DMG yet</li><li>Hides the CLI power</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Developer Tool (Lead with CLI, Swift is the engine)</h3>
+      <p><strong>Hero:</strong> "Record workflows. Classify every step. Automate what's automatable. Open-source CLI for macOS."</p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+        <strong>Install CTA:</strong> <code>git clone + pip install + swift build</code><br/>
+        <strong>Swift mentioned as:</strong> "Native capture engine" in architecture section<br/>
+        <strong>Vibe:</strong> Hacker tool. Terminal screenshots. Power user audience.
+      </p>
+      <div class="pros-cons" style="margin-top: 1rem;">
+        <div class="pros"><h4>Pros</h4><ul><li>Honest about what it is today</li><li>Appeals to the audience that actually uses it</li><li>CLI-first matches current distribution</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Limits audience to developers</li><li>Multi-step install is friction</li><li>Undersells the native quality</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Hybrid (App + CLI, equal billing)</h3>
+      <p><strong>Hero:</strong> "Work normally. Get SOPs, coaching, and optimized workflows automatically. Native macOS capture + CLI-powered analysis."</p>
+      <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+        <strong>Install CTA:</strong> Two steps &mdash; "1. Install the app 2. Install the CLI"<br/>
+        <strong>Architecture shown as:</strong> First-class diagram (Swift captures &rarr; CLI analyzes)<br/>
+        <strong>Vibe:</strong> Professional tool with depth. Shows the full pipeline.
+      </p>
+      <div class="pros-cons" style="margin-top: 1rem;">
+        <div class="pros"><h4>Pros</h4><ul><li>Accurate to the architecture</li><li>Shows sophistication without hiding complexity</li><li>Consulting story: "we configured this for you"</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Two install steps = more friction</li><li>Might confuse "is this an app or a CLI?"</li><li>Harder to make a clean hero</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
