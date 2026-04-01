@@ -243,7 +243,6 @@ export default function SifuPage() {
             <video
               src="/hero-loop.mp4"
               autoPlay
-              loop
               muted
               playsInline
               className="w-full h-auto"
