@@ -203,38 +203,52 @@ export default function SifuPage() {
       <section className="relative z-10 max-w-[960px] mx-auto px-6 pt-8 pb-20">
         <div className="branch-divider mb-10" />
 
-        <div className="max-w-2xl">
-          <h1 className="text-6xl sm:text-7xl font-bold tracking-tight text-ink mb-5">
-            si<span className="text-blossom-deep">fu</span>
-          </h1>
+        <div className="flex flex-col lg:flex-row items-start gap-10">
+          <div className="flex-1 max-w-2xl">
+            <h1 className="text-6xl sm:text-7xl font-bold tracking-tight text-ink mb-5">
+              si<span className="text-blossom-deep">fu</span>
+            </h1>
 
-          <p className="text-2xl sm:text-3xl font-medium text-ink/80 mb-6 leading-snug">
-            Work normally. Get SOPs automatically.
-          </p>
+            <p className="text-2xl sm:text-3xl font-medium text-ink/80 mb-6 leading-snug">
+              Work normally. Get SOPs automatically.
+            </p>
 
-          <p className="font-mono text-sm text-branch-light/70 leading-relaxed mb-8 max-w-lg">
-            Free, open-source action logger for macOS. Records your workflows,
-            detects patterns, generates step-by-step documentation with
-            screenshots. Privacy-first&mdash;everything stays on your machine.
-          </p>
+            <p className="font-mono text-sm text-branch-light/70 leading-relaxed mb-8 max-w-lg">
+              Free, open-source action logger for macOS. Records your workflows,
+              detects patterns, generates step-by-step documentation with
+              screenshots. Privacy-first&mdash;everything stays on your machine.
+            </p>
 
-          <ul className="space-y-3 mb-8">
-            {[
-              "Step-by-step SOPs from real workflows",
-              "Coaching feedback on inefficiencies",
-              "Automation scripts for repetitive patterns",
-              "Tutorial content from screen recordings",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3">
-                <span className="mt-1.5 block h-2 w-2 rounded-full bg-blossom shrink-0" />
-                <span className="text-ink/70 text-base">{item}</span>
-              </li>
-            ))}
-          </ul>
+            <ul className="space-y-3 mb-8">
+              {[
+                "Step-by-step SOPs from real workflows",
+                "Coaching feedback on inefficiencies",
+                "Automation scripts for repetitive patterns",
+                "Tutorial content from screen recordings",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-1.5 block h-2 w-2 rounded-full bg-blossom shrink-0" />
+                  <span className="text-ink/70 text-base">{item}</span>
+                </li>
+              ))}
+            </ul>
 
-          <p className="font-mono text-xs tracking-wide uppercase text-branch-light/40">
-            No screen recording apps. No manual documentation. No paid subscriptions.
-          </p>
+            <p className="font-mono text-xs tracking-wide uppercase text-branch-light/40">
+              No screen recording apps. No manual documentation. No paid subscriptions.
+            </p>
+          </div>
+
+          {/* Hero video */}
+          <div className="hidden lg:block w-[280px] shrink-0 rounded-xl overflow-hidden border border-blossom/10 shadow-lg shadow-blossom/5">
+            <video
+              src="/hero-loop.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-auto"
+            />
+          </div>
         </div>
       </section>
 
