@@ -43,7 +43,39 @@ const layers = [
     desc: "Generates executable bash, AppleScript, or dev-browser scripts from detected patterns. One command away from zero-click.",
     icon: "\u2B23",
   },
+  {
+    name: "Classifier",
+    desc: "Discovers your automation toolkit, then classifies each step into the fastest execution method\u2014API, CLI, browser, or macro.",
+    icon: "\u2B21",
+  },
 ];
+
+const classifierSteps = [
+  { id: 1, original: "Open terminal, cd to project", method: "eliminate", label: "SKIP" },
+  { id: 2, original: "git status", method: "cli", label: "CLI" },
+  { id: 3, original: "git add . && git commit", method: "cli", label: "CLI" },
+  { id: 4, original: "vercel --prod", method: "api", label: "API" },
+  { id: 5, original: "Wait for build to finish", method: "wait_for", label: "WAIT" },
+  { id: 6, original: "Switch to Chrome", method: "eliminate", label: "SKIP" },
+  { id: 7, original: "Open Vercel dashboard", method: "eliminate", label: "SKIP" },
+  { id: 8, original: "Click into latest deployment", method: "eliminate", label: "SKIP" },
+  { id: 9, original: "Verify production URL is live", method: "api", label: "API" },
+];
+
+const methodColors: Record<string, string> = {
+  eliminate: "bg-paper/10 text-paper/30 line-through",
+  cli: "bg-leaf/20 text-leaf",
+  api: "bg-blossom/20 text-blossom",
+  wait_for: "bg-[#FFB86C]/20 text-[#FFB86C]",
+  manual: "bg-paper/20 text-paper/60",
+};
+
+const labelColors: Record<string, string> = {
+  SKIP: "bg-paper/10 text-paper/30",
+  CLI: "bg-leaf/20 text-leaf border-leaf/30",
+  API: "bg-blossom/20 text-blossom border-blossom/30",
+  WAIT: "bg-[#FFB86C]/20 text-[#FFB86C] border-[#FFB86C]/30",
+};
 
 const petals = Array.from({ length: 12 }, (_, i) => ({
   left: `${(i * 8.3) % 100}%`,
@@ -224,7 +256,7 @@ export default function SifuPage() {
                 "Step-by-step SOPs from real workflows",
                 "Coaching feedback on inefficiencies",
                 "Automation scripts for repetitive patterns",
-                "Tutorial content from screen recordings",
+                "Workflow classifier\u2014finds what to automate and how",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3">
                   <span className="mt-1.5 block h-2 w-2 rounded-full bg-blossom shrink-0" />
@@ -329,14 +361,14 @@ export default function SifuPage() {
 
         <div className="mb-10">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink mb-2">
-            Five layers, one command
+            Six layers, one command
           </h2>
           <p className="font-mono text-branch-light/60 text-sm">
             Each layer builds on the last. Start capturing, everything else follows.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {layers.map((l, i) => (
             <div
               key={l.name}
@@ -429,10 +461,10 @@ export default function SifuPage() {
 
         <div className="max-w-2xl">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-ink mb-3">
-            Coach your workflow
+            Coach and optimize your workflow
           </h2>
           <p className="font-mono text-sm text-branch-light/60 mb-8">
-            Already installed? Ask your agent to analyze your day.
+            Already installed? Ask your agent to analyze and optimize your day.
           </p>
 
           <div className="rounded-lg border border-blossom/10 bg-ink p-6 overflow-x-auto">
@@ -446,16 +478,97 @@ export default function SifuPage() {
             </div>
             <pre className="font-mono text-sm sm:text-base leading-relaxed">
               <span className="text-leaf">
-                {">"} Coach my workflow from today.{"\n"}
-                {"  "}What could I automate?
+                {">"} Classify my workflows from today.{"\n"}
+                {"  "}What can be automated?
               </span>
             </pre>
           </div>
 
           <p className="font-mono text-xs text-branch-light/40 mt-4">
             Works with Claude Code, Codex, and OpenClaw. The agent reads your
-            action log and finds every shortcut you missed.
+            action log, classifies each step, and shows you the fastest path.
           </p>
+        </div>
+      </section>
+
+      {/* ── Classifier ── */}
+      <section className="relative z-10 bg-ink">
+        <div className="max-w-[960px] mx-auto px-6 py-16">
+          <div className="branch-divider branch-divider-ink mb-10" />
+
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl sm:text-3xl font-bold text-paper mb-2">
+              Classify &mdash; find the fastest path
+            </h2>
+            <p className="font-mono text-sm text-paper/40 mb-3">
+              The classifier scans your recorded workflow, discovers what tools you have,
+              and assigns each step the most efficient execution method.
+            </p>
+            <p className="font-mono text-sm text-paper/40 mb-8">
+              Human overhead gets eliminated. API calls replace browser clicks.
+              What took 8 steps takes 4.
+            </p>
+
+            {/* Before/After comparison */}
+            <div className="rounded-lg border border-blossom/10 bg-[#12101e] overflow-hidden">
+              <div className="flex border-b border-blossom/20">
+                <div className="px-4 py-2.5 font-mono text-xs uppercase tracking-wider text-blossom-deep border-b-2 border-blossom-deep">
+                  Workflow Classification
+                </div>
+              </div>
+
+              <div className="p-5 space-y-2">
+                {classifierSteps.map((step) => (
+                  <div
+                    key={step.id}
+                    className={`flex items-center gap-3 rounded-md px-3 py-2 font-mono text-xs transition-all ${
+                      step.method === "eliminate" ? "opacity-40" : ""
+                    }`}
+                  >
+                    <span className={`shrink-0 w-12 text-center rounded px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${labelColors[step.label]}`}>
+                      {step.label}
+                    </span>
+                    <span className={`flex-1 ${step.method === "eliminate" ? "line-through text-paper/30" : "text-paper/70"}`}>
+                      {step.original}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Stats bar */}
+              <div className="border-t border-blossom/20 px-5 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="font-mono text-xs text-paper/30">Human: <span className="text-paper/60">9 steps, ~2 min</span></span>
+                  <span className="text-paper/20">&rarr;</span>
+                  <span className="font-mono text-xs text-paper/30">Compiled: <span className="text-leaf">5 steps, ~35s</span></span>
+                </div>
+                <span className="font-mono text-[10px] text-blossom/50 uppercase tracking-wider">4 steps eliminated</span>
+              </div>
+            </div>
+
+            {/* Capability extensions */}
+            <div className="mt-8 rounded-lg border border-blossom/10 bg-ink/80 p-5">
+              <h3 className="font-bold text-paper/80 text-sm mb-3">Teach it your tools</h3>
+              <p className="font-mono text-xs text-paper/40 mb-4">
+                Drop YAML files in <code className="bg-[#12101e] rounded px-1.5 py-0.5 text-leaf">~/.sifu/capabilities.d/</code> to
+                extend the classifier with your specific automation toolkit.
+              </p>
+              <pre className="font-mono text-xs leading-relaxed text-leaf/80 bg-[#12101e] rounded p-4 overflow-x-auto">
+{`# ~/.sifu/capabilities.d/slack.yaml
+name: slack
+type: mcp
+matches:
+  - app: "Slack"
+  - url_contains: "slack.com"
+actions:
+  - send_message
+  - read_channel`}
+              </pre>
+              <p className="font-mono text-xs text-paper/30 mt-3">
+                Re-run classification after adding capabilities. The diff shows exactly what improved.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -475,6 +588,8 @@ export default function SifuPage() {
             { cmd: "sifu compile", desc: "Generate SOPs from patterns" },
             { cmd: "sifu coach --today", desc: "Efficiency coaching report" },
             { cmd: "sifu automate", desc: "List automation candidates" },
+            { cmd: "sifu classify", desc: "Classify steps into best methods" },
+            { cmd: "sifu classify --discover", desc: "Show available capabilities" },
             { cmd: "sifu patterns", desc: "Detected workflow patterns" },
             { cmd: "sifu sensitive", desc: "Panic: pause + purge last 5 min" },
           ].map((c) => (
