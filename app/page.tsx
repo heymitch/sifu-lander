@@ -13,7 +13,9 @@ Read https://github.com/heymitch/sifu and install it:
 2. Build the native SifuBar capture app from extras/SifuBar
 3. Move SifuBar.app to /Applications
 4. Grant Accessibility and Screen Recording permissions
-5. Start a capture session: sifu start
+5. Configure SOPs output to a visible folder:
+   sifu config sops_dir ~/Documents/sifu-sops
+6. Start a capture session: sifu start
 
 Then confirm it's running and show me the status.`;
 
