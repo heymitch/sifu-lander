@@ -81,8 +81,83 @@ git commit -m 'fix: update deploy config'
 vercel --prod
 \`\`\``;
 
+/* ── Hardcoded SOP Preview ── */
+function SopPreview() {
+  return (
+    <div className="font-sans text-paper/60 space-y-4 text-sm leading-relaxed">
+      {/* Title */}
+      <h1 className="text-lg font-bold text-paper/90 font-sans">
+        SOP: Deploy to Vercel from Local Repository
+      </h1>
+
+      {/* Metadata table */}
+      <div className="border border-blossom/10 rounded overflow-hidden text-xs font-mono">
+        <div className="grid grid-cols-[140px_1fr] border-b border-blossom/10">
+          <div className="px-3 py-2 text-paper/50 border-r border-blossom/10 bg-ink/30">
+            <span className="font-bold">Time Estimate</span>
+          </div>
+          <div className="px-3 py-2 text-paper/60">~2 minutes</div>
+        </div>
+        <div className="grid grid-cols-[140px_1fr] border-b border-blossom/10">
+          <div className="px-3 py-2 text-paper/50 border-r border-blossom/10 bg-ink/30">
+            <span className="font-bold">Apps Used</span>
+          </div>
+          <div className="px-3 py-2 text-paper/60">Ghostty (terminal), Chrome (browser)</div>
+        </div>
+        <div className="grid grid-cols-[140px_1fr]">
+          <div className="px-3 py-2 text-paper/50 border-r border-blossom/10 bg-ink/30">
+            <span className="font-bold">Trigger</span>
+          </div>
+          <div className="px-3 py-2 text-paper/60">When local changes are ready for deployment</div>
+        </div>
+      </div>
+
+      {/* Steps heading */}
+      <h2 className="text-base font-bold text-paper/80 pt-2">Steps</h2>
+
+      {/* Step 1 */}
+      <div>
+        <h3 className="text-base font-bold text-paper/80">1. Open your terminal</h3>
+        <p className="mt-1 text-paper/60">
+          Switch to Ghostty and navigate to the project directory.
+        </p>
+      </div>
+
+      {/* Step 2 */}
+      <div>
+        <h3 className="text-base font-bold text-paper/80">2. Review pending changes</h3>
+        <p className="mt-1 text-paper/60">
+          Run <code className="bg-ink/50 rounded px-1.5 py-0.5 font-mono text-xs text-leaf">git status</code> to
+          confirm which files have been modified.
+        </p>
+        <p className="mt-1 text-paper/60">
+          <span className="font-bold">Why:</span> Prevents accidentally committing unintended files.
+        </p>
+      </div>
+
+      {/* Step 3 */}
+      <div>
+        <h3 className="text-base font-bold text-paper/80">3. Stage and commit</h3>
+        <pre className="mt-2 bg-ink/50 rounded px-3 py-2 font-mono text-xs text-leaf overflow-x-auto">
+{`git add .
+git commit -m 'fix: update deploy config'`}
+        </pre>
+      </div>
+
+      {/* Step 4 */}
+      <div>
+        <h3 className="text-base font-bold text-paper/80">4. Deploy to production</h3>
+        <pre className="mt-2 bg-ink/50 rounded px-3 py-2 font-mono text-xs text-leaf overflow-x-auto">
+{`vercel --prod`}
+        </pre>
+      </div>
+    </div>
+  );
+}
+
 export default function SifuPage() {
   const [copied, setCopied] = useState(false);
+  const [showCode, setShowCode] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(installPrompt);
@@ -281,10 +356,48 @@ export default function SifuPage() {
               wrote this.
             </p>
 
-            <div className="rounded-lg border border-blossom/10 bg-[#12101e] p-6 overflow-x-auto">
-              <pre className="font-mono text-xs sm:text-sm leading-relaxed text-paper/70 whitespace-pre-wrap">
-                {sopSnippet}
-              </pre>
+            <div className="rounded-lg border border-blossom/10 bg-[#12101e] overflow-hidden">
+              {/* Tab bar */}
+              <div className="flex border-b border-blossom/20">
+                <button
+                  onClick={() => setShowCode(false)}
+                  className={`px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
+                    !showCode
+                      ? "text-blossom-deep border-b-2 border-blossom-deep"
+                      : "text-paper/40 hover:text-paper/60 border-b-2 border-transparent"
+                  }`}
+                >
+                  Preview
+                </button>
+                <button
+                  onClick={() => setShowCode(true)}
+                  className={`px-4 py-2.5 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer ${
+                    showCode
+                      ? "text-blossom-deep border-b-2 border-blossom-deep"
+                      : "text-paper/40 hover:text-paper/60 border-b-2 border-transparent"
+                  }`}
+                >
+                  Code
+                </button>
+              </div>
+
+              {/* Content area */}
+              <div className="p-6 overflow-x-auto">
+                <div
+                  className="transition-opacity duration-200"
+                  style={{ opacity: showCode ? 0 : 1, display: showCode ? "none" : "block" }}
+                >
+                  <SopPreview />
+                </div>
+                <div
+                  className="transition-opacity duration-200"
+                  style={{ opacity: showCode ? 1 : 0, display: showCode ? "block" : "none" }}
+                >
+                  <pre className="font-mono text-xs sm:text-sm leading-relaxed text-paper/70 whitespace-pre-wrap">
+                    {sopSnippet}
+                  </pre>
+                </div>
+              </div>
             </div>
 
             <div className="flex items-center gap-3 mt-6">
