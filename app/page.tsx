@@ -1,5 +1,22 @@
 "use client";
 
+import { useState } from "react";
+
+const installPrompt = `Install Sifu for me.
+
+Sifu is a local action logger for macOS that captures
+my workflows and auto-generates SOPs, coaching feedback,
+and automation scripts.
+
+Read https://github.com/heymitch/sifu and install it
+on my machine. Set up the menu bar widget so I can
+see recording status.
+
+After install, start a capture session so I can test it:
+  sifu start
+
+Then confirm it's running and show me the status.`;
+
 const layers = [
   {
     name: "Capture",
@@ -65,6 +82,14 @@ vercel --prod
 \`\`\``;
 
 export default function SifuPage() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(installPrompt);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <main className="min-h-screen bg-paper relative overflow-hidden">
       {/* ── Falling Petals ── */}
@@ -151,30 +176,35 @@ export default function SifuPage() {
               Open Claude Code, Codex, or OpenClaw. Paste this. Done.
             </p>
 
-            <div className="rounded-lg border border-blossom/10 bg-ink/80 p-6 overflow-x-auto backdrop-blur-sm">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="h-3 w-3 rounded-full bg-blossom-deep/80" />
-                <span className="h-3 w-3 rounded-full bg-blossom/60" />
-                <span className="h-3 w-3 rounded-full bg-leaf/60" />
-                <span className="ml-3 font-mono text-xs text-leaf/40">
-                  paste into your agent
-                </span>
+            <div className="rounded-lg border border-blossom/10 bg-ink/80 p-6 overflow-x-auto backdrop-blur-sm relative group">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-blossom-deep/80" />
+                  <span className="h-3 w-3 rounded-full bg-blossom/60" />
+                  <span className="h-3 w-3 rounded-full bg-leaf/60" />
+                  <span className="ml-3 font-mono text-xs text-leaf/40">
+                    paste into your agent
+                  </span>
+                </div>
+                <button
+                  onClick={handleCopy}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-blossom/20 bg-blossom/5 hover:bg-blossom/15 transition-all text-paper/50 hover:text-paper/80 font-mono text-xs cursor-pointer"
+                >
+                  {copied ? (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      Copied
+                    </>
+                  ) : (
+                    <>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                      Copy
+                    </>
+                  )}
+                </button>
               </div>
               <pre className="font-mono text-sm leading-relaxed text-leaf whitespace-pre-wrap">
-{`Install Sifu for me.
-
-Sifu is a local action logger for macOS that captures
-my workflows and auto-generates SOPs, coaching feedback,
-and automation scripts.
-
-Read https://github.com/heymitch/sifu and install it
-on my machine. Set up the menu bar widget so I can
-see recording status.
-
-After install, start a capture session so I can test it:
-  sifu start
-
-Then confirm it's running and show me the status.`}
+                {installPrompt}
               </pre>
             </div>
 
